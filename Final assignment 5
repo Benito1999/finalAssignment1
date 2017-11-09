@@ -1,0 +1,25 @@
+import xmltodict
+
+xmlBestand = open("stations.xml")
+xml = xmltodict.parse(xmlBestand.read())
+
+print("Dit zijn de codes en types van de 4 stations: ")
+for station in xml['Stations']['Station']:
+    if station:
+        print(station['Code'] + " - " + station['Type'])
+print("\n")
+
+
+print("Dit zijn alle stations met één of meer synoniemen:")
+for station in xml['Stations']['Station']:
+    if station:
+        if station['Synoniemen'] and len(station['Synoniemen']):
+            print(station['Code'] + ": ")
+            for synoniem in station['Synoniemen']['Synoniem']:
+                print("\t " + synoniem)
+print("\n")
+
+print("Dit is de lange naam van elk station:")
+if station:
+    for station in xml['Stations']['Station']:
+        print(station['Code'] + " - " + station['Namen']['Lang'])
